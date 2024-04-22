@@ -122,4 +122,13 @@ export class PostService {
     // Decide if to delete comment for the post.
     return result;
   }
+
+
+
+  async createReport(id: string, user: IUser): Promise<any> {
+    const result = await PostModel.findOneAndDelete({ _id: id, user: user._id });
+
+    // Decide if to delete comment for the post.
+    return result;
+  }
 }

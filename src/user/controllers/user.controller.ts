@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Post,
+  Delete,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { ApiBody, ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -55,8 +56,19 @@ export class UserController {
     description: 'Block a user',
   })
   async blockUser(@Param("id") id: string, @Req() req: Request) {
+    console.log({ id })
     return this.service.blockUser(id, req.user);
   }
+
+  @Delete(":id/unblock")
+  @ApiBody({
+    type: UpsertUserDto,
+    description: 'unblock a user',
+  })
+  async unblockUser(@Param("id") id: string, @Req() req: Request) {
+    return this.service.unblockUser(id, req.user);
+  }
+
 
   @Get("public/:userName")
   @ApiBody({

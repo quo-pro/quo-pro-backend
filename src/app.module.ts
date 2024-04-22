@@ -16,6 +16,8 @@ import { CommentModule } from './comment/comment.module';
 import { CommentController } from './comment/controllers/comment.controller';
 import { UserController } from './user/controllers/user.controller';
 import { UserModule } from './user/user.module';
+import { FlaggedContentController } from './flag-content/controllers/flagged-content.controller';
+import { FlaggedContentModule } from './flag-content/flagged-content.module';
 
 @Module({
   imports: [
@@ -26,7 +28,8 @@ import { UserModule } from './user/user.module';
     NotificationModule,
     PostModule,
     CommentModule,
-    UserModule
+    UserModule,
+    FlaggedContentModule
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -46,7 +49,8 @@ export class AppModule implements NestModule {
         NotificationController,
         PostController,
         CommentController,
-        UserController
+        UserController,
+        FlaggedContentController
       );
   }
 }

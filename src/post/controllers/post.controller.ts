@@ -43,4 +43,9 @@ export class PostController {
   async deletePost(@Param('id') id: string, @Req() request: Request) {
     return this.service.delete(id, request.user);
   }
+
+  @Post(':id/report')
+  async reportPost(@Param('id') postId: string, @Req() req: Request) {
+    return this.service.createReport(postId, req.user);
+  }
 }

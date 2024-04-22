@@ -108,6 +108,15 @@ export class UserService {
     try {
       return BlockedUserModel.create({ blockedBy: user._id, blockedUser: userToBlock });
     } catch (error) {
+      console.log(error)
+      throw new InternalServerErrorException(error)
+    }
+  }
+
+  async unblockUser(userToUnblock: string, user: IUser): Promise<IBlockedUser> {
+    try {
+      return BlockedUserModel.findOneAndDelete({ blockedBy: user._id, blockedUser: userToUnblock });
+    } catch (error) {
       throw new InternalServerErrorException(error)
     }
   }
