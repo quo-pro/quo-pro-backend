@@ -20,6 +20,7 @@ export class UpsertFlaggedContentDto {
     @IsNotEmpty()
     details: string;
 
+    @IsOptional()
     @ApiProperty({ description: 'New status of the flagged content', enum: FLAG_STATUSES })
     @IsEnum(FLAG_STATUSES)
     status: FLAG_STATUS_TYPE;

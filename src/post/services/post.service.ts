@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException, } from '@nestjs/common';
-import { FriendModel, PostModel } from '@quo-pro/database-connect';
+import { FlaggedContentModel, FriendModel, PostModel } from '@quo-pro/database-connect';
 import { IPost, IQuery, IQueryResponse, IUser } from '@quo-pro/commons';
 import { UpsertPostDto } from '../dto/upsertPostDto';
 
@@ -11,8 +11,12 @@ export class PostService {
 
       const followers = await FriendModel.find({ friend: user._id }).distinct("friend");
       const following = await FriendModel.find({ user: user._id }).distinct("user");
+      const flaggedContents = await FlaggedContentModel.find({ flaggedBy: user._id }).distinct("post")
 
       const conditions = {
+        _id: {
+          $nin: flaggedContents
+        },
         $or: [
           {
             visibility: {
