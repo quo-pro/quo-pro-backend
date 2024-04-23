@@ -4,9 +4,13 @@ import { AppModule } from './app.module';
 import { MongoDatabase } from '@quo-pro/database-connect';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as express from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
   app.enableCors({
     origin: "*",
