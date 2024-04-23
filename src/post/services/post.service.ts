@@ -70,7 +70,9 @@ export class PostService {
       const { limit = 100, page = 1, sort_by = 'createdAt', order_by = 'desc', startDate, endDate, user } = query;
 
       const conditions = {
-        visibility: 'PUBLIC',
+        visibility: {
+          $in: ['PUBLIC']
+        },
         ...(startDate && { createdAt: { $gte: new Date(startDate) } }),
         ...(endDate && { createdAt: { $lte: new Date(endDate) } }),
         ...(user ? { user } : {}),
@@ -126,8 +128,6 @@ export class PostService {
     // Decide if to delete comment for the post.
     return result;
   }
-
-
 
   async createReport(id: string, user: IUser): Promise<any> {
     const result = await PostModel.findOneAndDelete({ _id: id, user: user._id });
